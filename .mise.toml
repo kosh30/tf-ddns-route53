@@ -1,0 +1,10 @@
+[tools]
+opentofu = "latest"
+python = "3.12"
+"pipx:boto3" = { version = "latest", pipx_args = "--include-deps" }
+"pipx:pre-commit" = "latest"
+
+[env]
+_.python.venv = ".venv"
+AWS_PROFILE = "kosh-private"
+AWS_REGION = "eu-central-1"

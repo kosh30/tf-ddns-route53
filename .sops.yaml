@@ -1,0 +1,4 @@
+creation_rules:
+    - path_regex: .*ecrypted.yaml
+      age: >-
+        age1ast5ce05rtn2u2vdvs722wch9p5yvhdpd7z5e300d4eh9s5r7qzssdnq30

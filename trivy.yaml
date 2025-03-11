@@ -1,0 +1,39 @@
+timeout: 10m
+format: table
+dependency-tree: true
+list-all-pkgs: true
+exit-code: 1
+#output: result.json
+severity:
+  - HIGH
+  - CRITICAL
+ignore-policy:
+  - avd-aws-0057
+  - avd-aws-0104
+  - AVD-KSV-0041
+  - AVD-KSV-0046
+
+misconfiguration:
+  include-non-failures: false
+  #scanners:
+  #  - terraform
+  terraform:
+    exclude-downloaded-modules: true
+  kubernetes:
+
+scan:
+  exclude:
+    - .**/flux-system/gotk-components.yaml
+    - .terraform/**/*
+    - ./**/.terraform/**/*
+    - .venv/**/*
+  skip-dirs:
+    - .terraform/**/*
+    - ./**/.terraform/**/*
+    - terraform-aws-modules
+    - .terraform
+    - .terraform/modules/**/*
+    - ./**/.terraform/modules/**/*
+    - .venv/**/*
+  skip-files:
+    - .**/flux-system/gotk-components.yaml
