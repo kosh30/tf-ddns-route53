@@ -61,8 +61,7 @@ module "lambda_function" {
         "ssm:GetParameter"
       ]
       resources = [
-        aws_ssm_parameter.creds.arn,
-        "arn:aws:ssm:eu-central-1:134156946228:*"
+        aws_ssm_parameter.creds.arn
       ]
     }
 
