@@ -1,6 +1,6 @@
 [tools]
 opentofu = "latest"
-python = "3.12"
+python = "3.13.2"
 "pipx:boto3" = { version = "latest", pipx_args = "--include-deps" }
 "pipx:pre-commit" = "latest"
 
