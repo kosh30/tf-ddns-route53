@@ -32,5 +32,8 @@ No inputs.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_ddns_settings"></a> [ddns\_settings](#output\_ddns\_settings) | n/a |
+| <a name="output_secrets"></a> [secrets](#output\_secrets) | n/a |
 <!-- END_TF_DOCS -->
