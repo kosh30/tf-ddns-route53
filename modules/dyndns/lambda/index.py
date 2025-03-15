@@ -18,15 +18,18 @@ def authenticated(event):
     credentials = boto3.client('ssm').get_parameter(
         Name=ssm_parameter_name, WithDecryption=True
     )['Parameter']['Value']
-    auth = base64.b64decode(event['headers']['authorization'].split(' ')[-1])
-    return auth.decode('utf-8') == credentials
+    auth = base64.b64decode(event['headers']['authorization'].split(' ')[-1]).decode('utf-8')
+    if auth != credentials:
+        logger.warning('authentication failed: %s', auth)
+        return False
+    return True
 
 
 def handler(event, _):
     response = {
-        'statusCode': 404,
-        'headers': {'Content-Type': 'text/plain'},
-        'body': '',
+        'statusCode': 403,
+        'headers': {'Content-Type': 'text/text'},
+        'body': 'forbidden',
     }
 
     if not authenticated(event):
@@ -67,7 +70,8 @@ def handler(event, _):
             'body': 'success',
         }
 
-    except:
+    except Exception as e:
+        logger.exception(e)
         return response
 
     return response
