@@ -5,7 +5,7 @@ data "aws_kms_key" "ssm_default" {
 resource "aws_ssm_parameter" "creds" {
   name   = "/${local.santizedDomain}_ddns_route53_credentials"
   type   = "SecureString"
-  value  = "${var.domain_data.username}:${var.domain_data.password}"
+  value  = "${local.usename}:${local.password}"
   key_id = data.aws_kms_key.ssm_default.key_id
 
   lifecycle {
