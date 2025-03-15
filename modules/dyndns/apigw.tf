@@ -22,20 +22,8 @@ module "api_gateway" {
         type                   = "AWS_PROXY"
         uri                    = module.lambda_function.lambda_function_arn
         payload_format_version = "2.0"
-        timeout_milliseconds   = 10000
+        timeout_milliseconds   = 3000
       }
     }
   }
-}
-
-output "api_endpoint" {
-  value = "${module.api_gateway.api_endpoint}/nic/update"
-}
-
-output "domain_api_endpoint" {
-  value = "https://${local.apiFullDomain}/nic/update"
-}
-
-output "allowed_domain" {
-  value = local.domainZoneName
 }
