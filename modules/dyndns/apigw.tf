@@ -1,5 +1,5 @@
 locals {
-  apiFullDomain = "${nonsensitive(var.domain_data.api_domain_prefix)}.${nonsensitive(var.domain_data.domain)}"
+  apiFullDomain = "${var.domain_data.api_domain_prefix}.${var.domain_data.domain}"
 }
 module "api_gateway" {
   source  = "terraform-aws-modules/apigateway-v2/aws"
