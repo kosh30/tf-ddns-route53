@@ -1,3 +1,6 @@
+locals {
+  apiFullDomain = "${nonsensitive(var.domain_data.api_domain_prefix)}.${nonsensitive(var.domain_data.domain)}"
+}
 module "api_gateway" {
   source  = "terraform-aws-modules/apigateway-v2/aws"
   version = ">= 5"
@@ -9,11 +12,8 @@ module "api_gateway" {
     allow_origins = ["*"]
   }
 
-  create_domain_records = true
-  create_certificate    = true
-  create_domain_name    = true
-  domain_name           = "ddns.${nonsensitive(var.domain_data.domain)}"
-  hosted_zone_name      = nonsensitive(var.domain_data.domain)
+  domain_name      = local.apiFullDomain
+  hosted_zone_name = local.domainZoneName
 
   create_routes_and_integrations = true
   routes = {
@@ -25,29 +25,17 @@ module "api_gateway" {
         timeout_milliseconds   = 10000
       }
     }
-    # "$default" = {
-    #   integration = {
-    #     uri = module.lambda_function.lambda_function_arn
-    #     tls_config = {
-    #       server_name_to_verify = var.domain_data.domain
-    #     }
-    #
-    #     response_parameters = [
-    #       {
-    #         status_code = 500
-    #         mappings = {
-    #           "append:header.header1" = "$context.requestId"
-    #           "overwrite:statuscode"  = "403"
-    #         }
-    #       },
-    #       {
-    #         status_code = 404
-    #         mappings = {
-    #           "append:header.error" = "$stageVariables.environmentId"
-    #         }
-    #       }
-    #     ]
-    #   }
-    # }
   }
+}
+
+output "api_endpoint" {
+  value = "${module.api_gateway.api_endpoint}/nic/update"
+}
+
+output "domain_api_endpoint" {
+  value = "https://${local.apiFullDomain}/nic/update"
+}
+
+output "allowed_domain" {
+  value = local.domainZoneName
 }

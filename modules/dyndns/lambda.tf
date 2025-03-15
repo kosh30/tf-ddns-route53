@@ -53,7 +53,7 @@ module "lambda_function" {
       actions = [
         "route53:ChangeResourceRecordSets"
       ]
-      resources = ["arn:aws:route53:::hostedzone/${local.domainZoneId}"]
+      resources = [local.domainZoneArn]
     }
 
     ssmpolicy = {
