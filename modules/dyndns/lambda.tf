@@ -28,7 +28,7 @@ module "lambda_function" {
   handler       = "index.handler"
   runtime       = "python3.12"
   publish       = true
-  timeout       = 300
+  timeout       = 3
 
   source_path = "${path.module}/lambda"
 
